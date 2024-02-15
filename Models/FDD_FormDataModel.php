@@ -3,7 +3,7 @@ if(!defined('ABSPATH')){
     exit;
 }
 
-class FormDataModel {
+class FDD_FormDataModel {
     private $wpdb;
     private $table_name;
 

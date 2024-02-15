@@ -10,14 +10,15 @@ if(!defined('ABSPATH')){
     exit;
 }
 
-require_once(plugin_dir_path(__FILE__) . 'Models/FormDataModel.php');
+require_once(plugin_dir_path(__FILE__) . 'Models/FDD_FormDataModel.php');
 require_once(plugin_dir_path(__FILE__) . 'views/fdd-views.php');
-require_once(plugin_dir_path(__FILE__) . 'Controllers/FormDataController.php');
+require_once(plugin_dir_path(__FILE__) . 'views/fdd-edit-submission.php');
+require_once(plugin_dir_path(__FILE__) . 'Controllers/FDD_FormDataController.php');
 
 /**
  * Classe principale du plugin Form Data Display
  */
-class FormDataDisplay
+class FDD_FormDataDisplay
 {
     /**
      * @var FormDataModel Instance du modèle de données
@@ -30,8 +31,8 @@ class FormDataDisplay
     private $controller;
 
     public function __construct() {
-        $this->model = new FormDataModel();
-        $this->controller = new FormDataController();
+        $this->model = new FDD_FormDataModel();
+        $this->controller = new FDD_FormDataController();
 
         // Hook
         add_action('wpcf7_before_send_mail', array($this->controller, 'capture_form_submission'));
@@ -58,13 +59,13 @@ function form_data_display_uninstall() {
         exit;
     }
 
-    FormDataModel::drop_submissions_table();    
+    FDD_FormDataModel::drop_submissions_table();    
 }
     
 // Vérifie si la classe existe avant de l'instancier et d'enregistrer les hooks
-if (class_exists('FormDataDisplay')) {
+if (class_exists('FDD_FormDataDisplay')) {
     
-    $formDataDisplay = new FormDataDisplay();
+    $formDataDisplay = new FDD_FormDataDisplay();
 
     // activation
     register_activation_hook(__FILE__, array($formDataDisplay, 'activate'));

@@ -16,7 +16,7 @@ function fdd_display_user_submissions() {
     $current_user_email = $current_user->user_email;
 
     // Instantiation de FormDataModel pour récupérer les données 
-    $model = new FormDataModel();
+    $model = new FDD_FormDataModel();
     $submissions = $model->get_user_submissions($current_user_email);
 
     if (!empty($submissions)) {

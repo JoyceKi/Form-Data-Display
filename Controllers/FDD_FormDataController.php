@@ -3,11 +3,11 @@ if(!defined('ABSPATH')){
     exit;
 }
 
-class FormDataController {
+class FDD_FormDataController {
     protected $model;
 
     public function __construct() {
-        $this->model = new FormDataModel();
+        $this->model = new FDD_FormDataModel();
     }
 
     // fonction qui "nettoie" les n° de téléphone (n'existe pas dans wp)
@@ -16,7 +16,7 @@ class FormDataController {
         return $sanitized_phone;
     }
 
-    // Récupère les données du formulaire de contact et les enregistre grâce à FormDataModel
+    // Récupère les données du formulaire de contact et les enregistre grâce à FDD_FormDataModel
     public function capture_form_submission($contact_form) {
         $submission = WPCF7_Submission::get_instance();
         if ($submission) {
@@ -59,7 +59,7 @@ class FormDataController {
             return;
         }
 
-        include('views/edit-submission.php');
+        include('views/fdd-edit-submission.php');
     }
 
     /**

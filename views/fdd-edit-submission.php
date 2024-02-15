@@ -20,7 +20,7 @@ function fdd_edit_user_submission()
 
     $current_user = wp_get_current_user();
 
-    $model = new FormDataModel();
+    $model = new FDD_FormDataModel();
     $submission = $model->get_submission($id);
 
     if (!empty($submission)) {
