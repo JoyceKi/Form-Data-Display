@@ -10,8 +10,8 @@ class FDD_FormDataController {
         $this->model = new FDD_FormDataModel();
     }
 
-    // fonction qui "nettoie" les n° de téléphone (n'existe pas dans wp)
-    public function sanitize_phone($phone) {
+    // fonction qui "nettoie" les n° de téléphone (n'existe pas dans wp) réutilisable dans d'autres méthodes car statique
+    public static function sanitize_phone($phone) {
         $sanitized_phone = preg_replace('/[^0-9+()\-.\s]/', '', $phone);
         return $sanitized_phone;
     }

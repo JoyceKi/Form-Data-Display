@@ -14,6 +14,7 @@ require_once(plugin_dir_path(__FILE__) . 'Models/FDD_FormDataModel.php');
 require_once(plugin_dir_path(__FILE__) . 'views/fdd-views.php');
 require_once(plugin_dir_path(__FILE__) . 'views/fdd-edit-submission.php');
 require_once(plugin_dir_path(__FILE__) . 'Controllers/FDD_FormDataController.php');
+require_once(plugin_dir_path(__FILE__) . 'Controllers/FDD_FormDataSubmissionController.php');
 
 /**
  * Classe principale du plugin Form Data Display
@@ -21,21 +22,28 @@ require_once(plugin_dir_path(__FILE__) . 'Controllers/FDD_FormDataController.php
 class FDD_FormDataDisplay
 {
     /**
-     * @var FormDataModel Instance du modèle de données
+     * @var FDD_FormDataModel Instance du modèle de données
      */
     private $model;
 
     /**
-     * @var FormDataController Instance du contrôleur
+     * @var FDD_FormDataController Instance du contrôleur
      */
     private $controller;
+
+    /**
+     * @var FDD_formDataSubmissionController Instance du contrôleur
+     */
+    private $submission_controller;
 
     public function __construct() {
         $this->model = new FDD_FormDataModel();
         $this->controller = new FDD_FormDataController();
-
+        $this->submission_controller = new FDD_FormDataSubmissionController();
         // Hook
         add_action('wpcf7_before_send_mail', array($this->controller, 'capture_form_submission'));
+        
+        add_action('admin_post_update_user_submission', array($this->submission_controller, 'update_submission'));
     }
 
     public function activate() {

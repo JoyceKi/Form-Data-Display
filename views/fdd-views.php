@@ -36,8 +36,6 @@ function fdd_display_user_submissions() {
         $output = 'Aucun message envoyé.';
     }
 
-    wp_reset_postdata();
-
     return $output;
 }
 
