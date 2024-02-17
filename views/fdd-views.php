@@ -4,7 +4,6 @@ if(!defined('ABSPATH')){
 }
 
 // Affiche les soummissions pour les utilisateurs connectés
-
 function fdd_display_user_submissions() {
 
     if (!is_user_logged_in()) {
@@ -28,7 +27,17 @@ function fdd_display_user_submissions() {
             $output .= '<strong>Téléphone : </strong>' . esc_html($submission->phone) . '<br>';
             $output .= '<strong>Sujet : </strong>' . esc_html($submission->subject) . '<br>';
             $output .= '<strong>Message : </strong>' . esc_html($submission->message) . '<br>';
-            $output .= '<a href="' . esc_url(add_query_arg('edit', $submission->id, get_permalink())) . '" class="edit-submission-button">Modifier</a>';
+
+            // URL de base (get_permalink ne fonctionne pas comme prévu)
+            $base_url = home_url('/modifications');
+
+            // Enlève les arguments que l'url de base pourrait avoir
+            $base_url = remove_query_arg('edit', $base_url);
+
+            // Ajoute l'argument 'edit' à l'URL de base
+            $edit_url = esc_url(add_query_arg('edit', $submission->id, $base_url));
+
+            $output .= '<a href="' . $edit_url . '" class="edit-submission-button">Modifier</a>';
             $output .= '</li><br>';
         }
         $output .= '</ul>';

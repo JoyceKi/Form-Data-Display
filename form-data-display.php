@@ -40,15 +40,28 @@ class FDD_FormDataDisplay
         $this->model = new FDD_FormDataModel();
         $this->controller = new FDD_FormDataController();
         $this->submission_controller = new FDD_FormDataSubmissionController();
-        // Hook
+
+        // Hook pour récupérer la soumission du formulaire de contact
         add_action('wpcf7_before_send_mail', array($this->controller, 'capture_form_submission'));
         
+        // Hook pour modifier la soumission de l'utilisateur connecté
         add_action('admin_post_update_user_submission', array($this->submission_controller, 'update_submission'));
+
+        // Hook pour vérifier la redirection vers le formulaire de modification
+        add_action('template_redirect', array($this, 'check_edit_submission_redirect'));
     }
 
     public function activate() {
         $this->model->create_submissions_table();
         flush_rewrite_rules();
+    }
+
+    public function check_edit_submission_redirect() {
+        if (isset($_GET['edit'])) {
+            $edit_id = intval($_GET['edit']);
+            wp_redirect(home_url('/modifications/?edit=' . $edit_id));
+            exit;
+        }
     }
 
     public function deactivate() {

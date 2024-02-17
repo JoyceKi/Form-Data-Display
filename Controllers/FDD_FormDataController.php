@@ -25,7 +25,7 @@ class FDD_FormDataController {
             // Vérifie que les champs requis sont bien présents
             if (isset($posted_data['your-name'], $posted_data['your-email'], $posted_data['your-message'])) {
                 // Les champs optionnels
-                $phone = isset($posted_data['tel-6']) ? $this->sanitize_phone($posted_data['tel-6']) : '';
+                $phone = isset($posted_data['tel-726']) ? $this->sanitize_phone($posted_data['tel-726']) : '';
                 $subject = isset($posted_data['your-subject']) ? sanitize_text_field($posted_data['your-subject']) : '';
 
                 $data = array(
